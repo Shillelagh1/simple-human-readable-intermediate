@@ -8,7 +8,7 @@
   </PropertyGroup>
 
     <ItemGroup>
-    <Reference Include="../signature_parser/bin/Debug/net6.0/signature_parser.dll"/>
-    <Reference Include="../commandline_arg_parse/bin/Debug/net6.0/commandline_arg_parse.dll"/>
+    <Reference Include="dependencies/signature_parser.dll"/>
+    <Reference Include="dependencies/commandline_arg_parse.dll"/>
   </ItemGroup>
 </Project>

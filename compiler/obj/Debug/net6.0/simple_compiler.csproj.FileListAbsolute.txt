@@ -30,6 +30,4 @@
 /home/kali/Documents/devvy/simple_compiler/compiler/obj/Debug/net6.0/ref/simple_compiler.dll
 /home/kali/Documents/devvy/simple_compiler/compiler/bin/Debug/net6.0/commandline_arg_parse.dll
 /home/kali/Documents/devvy/simple_compiler/compiler/bin/Debug/net6.0/signature_parser.dll
-/home/kali/Documents/devvy/simple_compiler/compiler/bin/Debug/net6.0/signature_parser.pdb
-/home/kali/Documents/devvy/simple_compiler/compiler/bin/Debug/net6.0/commandline_arg_parse.pdb
 /home/kali/Documents/devvy/simple_compiler/compiler/obj/Debug/net6.0/simple_compiler.csproj.CopyComplete
