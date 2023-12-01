@@ -1,0 +1,12 @@
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/bin/Debug/net6.0/commandline_arg_parse.deps.json
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/bin/Debug/net6.0/commandline_arg_parse.dll
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/bin/Debug/net6.0/commandline_arg_parse.pdb
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/commandline_arg_parse.csproj.AssemblyReference.cache
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/commandline_arg_parse.GeneratedMSBuildEditorConfig.editorconfig
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/commandline_arg_parse.AssemblyInfoInputs.cache
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/commandline_arg_parse.AssemblyInfo.cs
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/commandline_arg_parse.csproj.CoreCompileInputs.cache
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/commandline_arg_parse.dll
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/refint/commandline_arg_parse.dll
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/commandline_arg_parse.pdb
+/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/obj/Debug/net6.0/ref/commandline_arg_parse.dll

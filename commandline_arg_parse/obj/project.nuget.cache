@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "YrQPbMYw8bMRlmAwA7HbmjCq+RDTcZrpGB4+6qz1/scO/3jN6Ib2fcvFgQp167Mdy7Eup/9EWL2ZMAcp+CQD4g==",
+  "success": true,
+  "projectFilePath": "/home/kali/Documents/devvy/simple_compiler/commandline_arg_parse/commandline_arg_parse.csproj",
+  "expectedPackageFiles": [
+    "/home/kali/.nuget/packages/microsoft.netcore.app.ref/6.0.8/microsoft.netcore.app.ref.6.0.8.nupkg.sha512",
+    "/home/kali/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.8/microsoft.aspnetcore.app.ref.6.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

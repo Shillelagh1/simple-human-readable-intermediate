@@ -1,0 +1,4 @@
+object ex_obj{
+    int ex_1
+    int ex_2
+}
