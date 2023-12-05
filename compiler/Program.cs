@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using commandline_arg_parse;
+using tether_signature_parser;
 using System.Text;
 using System.Reflection;
 
@@ -48,6 +49,8 @@ namespace Simple_Compiler
 		{
 			var compiler = new Simple_ITD_Compile();
 
+			compiler.GetAllPkgSigs();
+
 			compiler.Compile(body);
 
 			return compiler;
@@ -55,9 +58,30 @@ namespace Simple_Compiler
 
 		// Compiler Data
 		bool ignoreNonexistentCIs = false;
-		string reqBody = "";
+		string reqBody = "global main\n";
+		string textBody = "";
+		string procName = "_start";
+		int procStackDisplacement = 0;
+		string procTextBody = "";
+		Dictionary<string, ITDType> procLocalVars = new Dictionary<string, ITDType>();
+		List<TetherSignature> types = new List<TetherSignature>();
+
 
 		// Compiler Methods
+		public void GetAllPkgSigs(){
+			if(!Directory.Exists("pkg")){
+				throw new Exception("CERROR -- No 'pkg' directory! Create one and populate it with packages");
+			}
+			
+			foreach (var file in Directory.EnumerateFiles("pkg", "*.bin"))
+			{
+				var signatureList = TetherSignatureParser.LoadSignatureFile(file);
+				foreach(var i in signatureList){
+					types.Add(i);
+				}
+			}
+		}
+
 		public void Compile(byte[] body)
 		{
 			// Reflections info for compiler instructions
@@ -79,9 +103,6 @@ namespace Simple_Compiler
 				{
 					continue;
 				}
-
-				// Comment the line that generated the following code, for everyones sake
-				reqBody += $"; {GetStringFromBytes(line).Replace((char)0, ' ')}\n";
 
 				if (cmd[0] == '#')
 				{
@@ -193,11 +214,22 @@ namespace Simple_Compiler
 
 		public string Result()
 		{
-			return reqBody;
+			return $"bits 64\n\n{reqBody}section .text\n{textBody}";
+		}
+
+		public TetherSignature GetSignatureByName(string name){
+			foreach(var sig in types){
+				if(sig.name == name){
+					return sig;
+				}
+			}
+
+			throw new Exception($"CERROR -- No signature with name '{name}' exists!");
 		}
 		#endregion
 
 		// Compiler Instructions
+		// https://github.com/Shillelagh1/simple-human-readable-intermediate/wiki
 		#region 
 		private void CI_EXTREQ(List<byte[]> args)
 		{
@@ -225,6 +257,49 @@ namespace Simple_Compiler
 			ignoreNonexistentCIs = false;
 		}
 
+		private void CI_PROC(List<byte[]> args){
+			procName = GetStringFromBytes(args[0]);
+			procLocalVars = new Dictionary<string, ITDType>();
+			procStackDisplacement = 0;
+			procTextBody = "";
+		}
+
+		private void CI_LOCALARR(List<byte[]> args){
+			string rawName = GetStringFromBytes(args[1]);
+			string name = rawName.Trim('&');
+			var arrayElementType = GetSignatureByName(GetStringFromBytes(args[0]));
+			int reflevel = rawName.Count(f => f == '&');
+			procLocalVars.Add(name, new ITDType(arrayElementType, reflevel, true));
+
+			procStackDisplacement += 8;
+			procTextBody += "mov rdi, 5\n";
+			procTextBody += "call malloc\n";
+			procTextBody += $"mov [rdi-{procStackDisplacement}], rax\n\n";
+		}
+
+		private void CI_ENDPROC(List<byte[]> args){
+			int toOffset = 16 * (int)(Math.Floor(procStackDisplacement / 16.0)+1);
+			string header = $"{procName}:\n";
+			header += "push rbp\n";
+			header += "mov rbp, rsp\n";
+			header += $"sub rsp, {toOffset}\n";
+
+			procTextBody = header + procTextBody;
+			textBody += procTextBody;
+		}
+
 		#endregion
+	}
+
+	public class ITDType{
+		TetherSignature typesig;
+		int referenceLevel;
+		bool isArray;
+
+		public ITDType(TetherSignature typesig, int referenceLevel, bool isArray){
+			this.typesig = typesig;
+			this.referenceLevel = referenceLevel;
+			this.isArray = isArray;
+		}
 	}
 }
